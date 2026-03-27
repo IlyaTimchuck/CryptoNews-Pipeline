@@ -6,3 +6,7 @@ logs/
 .venv
 airflow.db
 airflow.cfg
+minio_data/
+clickhouse_data/
+clickhouse_storage/
+.astro/

@@ -1,0 +1,29 @@
+services:
+  minio:
+    image: quay.io/minio/aistor/minio
+    container_name: minio-server
+    networks:
+      - airflow
+    env_file:
+      - .env
+    ports:
+      - "10000:9000"
+      - "9002:9001"
+    environment:
+      MINIO_LICENSE: /minio.license  
+    volumes:
+      - ./minio_data:/mnt/data                            
+      - ./include/minio.license:/minio.license:ro
+    command: server /mnt/data --console-address ":9001"           
+  
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-server
+    networks:
+      - airflow
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  
